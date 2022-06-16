@@ -1,0 +1,20 @@
+name: 1-Stage of 2-Stage PR Approval Proccess
+on:
+  pull_request: 
+    types: [opened, reopened]
+
+env: 
+ # Change variable to add reviewers with comma separator.
+ # Example: `sakhnovict, dbitkovski, chernodub`.
+ # Users should be codeowners or collaborators to review.
+ FIRST_STEP_REVIEWERS: 'petati'
+    
+jobs:
+  onOpenedPullRequest:
+    runs-on: ubuntu-latest
+    steps:
+    - name: add-reviewers-action
+      uses: sakhnovict/add-reviewers-action@1.0.0
+      with: 
+        reviewers: ${{ env.FIRST_STE_REVIEWERS }}
+        token: ${{ secrets.GITHUB_TOKEN }}
