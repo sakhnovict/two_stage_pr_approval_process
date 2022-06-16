@@ -16,5 +16,5 @@ jobs:
     - name: add-reviewers-action
       uses: sakhnovict/add-reviewers-action@1.0.0
       with: 
-        reviewers: ${{ env.FIRST_STE_REVIEWERS }}
+        reviewers: ${{ env.FIRST_STEP_REVIEWERS }}
         token: ${{ secrets.GITHUB_TOKEN }}
