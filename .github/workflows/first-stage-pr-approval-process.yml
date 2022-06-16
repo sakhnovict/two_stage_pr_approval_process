@@ -7,7 +7,7 @@ env:
  # Change variable to add reviewers with comma separator.
  # Example: `sakhnovict, dbitkovski, chernodub`.
  # Users should be codeowners or collaborators to review.
- FIRST_STEP_REVIEWERS: 'petati'
+ FIRST_STEP_REVIEWERS: 'petati,fopanin'
     
 jobs:
   onOpenedPullRequest:
