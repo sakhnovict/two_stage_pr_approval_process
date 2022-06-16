@@ -1,4 +1,4 @@
-name: 1-Stage of 2-Stage PR Approval Proccess
+name: Add reviewers to PR
 on:
   pull_request: 
     types: [opened, reopened]
