@@ -7,3 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: echo "PR is opened"
+    - name: Add Pull Request Reviewer
+      uses: AveryCameronUofR/add-reviewer-gh-action@1.0.3
+      with: 
+        reviewers: "petati"
+        token: ${{ secrets.GITHUB_TOKEN }}
