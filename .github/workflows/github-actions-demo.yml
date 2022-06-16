@@ -1,0 +1,9 @@
+name: 2-Stage PR Approval Proccess
+on:
+  pull_request: 
+    types: [opened]
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "PR is opened"
