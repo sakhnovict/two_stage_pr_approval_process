@@ -1,0 +1,22 @@
+name: Add team leads to PR review
+on:
+  pull_request_review:
+    types: [submitted]
+
+env:
+  APPROVALS_TO_CALL_LEADS: 2
+    
+jobs:
+  onSubmit:
+    if: github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - name: multi-approved-event
+        uses: sakhnovict/multi-approved-event-action@1.0.3
+        id: approved
+        with:
+          approvalsCount: ${{ env.APPROVALS_TO_CALL_LEADS }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo "Approved 2 times."
+        if: steps.approved.outputs.isApproved == 'true'
