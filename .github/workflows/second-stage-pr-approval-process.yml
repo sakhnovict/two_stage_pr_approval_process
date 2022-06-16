@@ -1,10 +1,15 @@
-name: Add team leads to PR review
+name: Check should add team leads to PR review
 on:
   pull_request_review:
     types: [submitted]
 
 env:
-  APPROVALS_TO_CALL_LEADS: 2
+  APPROVALS_TO_CALL_LEADS: 1
+  
+  # Change variable to add reviewers with comma separator.
+  # Example: `sakhnovict, dbitkovski, chernodub`.
+  # Users should be codeowners or collaborators to review.
+  TEAM_LEADS_REVIEWERS: 'pirelo4472'
     
 jobs:
   onSubmit:
@@ -18,5 +23,9 @@ jobs:
           approvalsCount: ${{ env.APPROVALS_TO_CALL_LEADS }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: echo "Approved 2 times."
+      - name: add-reviewers-action
+        uses: sakhnovict/add-reviewers-action@1.0.0
+        with: 
+          reviewers: ${{ env.TEAM_LEADS_REVIEWERS }}
+          token: ${{ secrets.GITHUB_TOKEN }}
         if: steps.approved.outputs.isApproved == 'true'
