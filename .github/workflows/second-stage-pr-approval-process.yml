@@ -4,7 +4,7 @@ on:
     types: [submitted]
 
 env:
-  APPROVALS_TO_CALL_LEADS: 1
+  APPROVALS_TO_CALL_LEADS: 2
   
   # Change variable to add reviewers with comma separator.
   # Example: `sakhnovict, dbitkovski, chernodub`.
