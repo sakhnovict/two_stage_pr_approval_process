@@ -17,6 +17,6 @@ jobs:
       - name: Enable workflow to ensure that this workflow ger ready to work
         shell: bash
         run: |
-          gh workflow enable -R $GITHUB_REPOSITORY ./.github/workflows/second-stage-pr-approval-process
+          gh workflow enable -R $GITHUB_REPOSITORY "Check should add lead reviewers to PR"
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
