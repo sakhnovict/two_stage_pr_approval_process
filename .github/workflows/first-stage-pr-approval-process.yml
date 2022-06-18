@@ -17,6 +17,8 @@ jobs:
       # To do this you first need to disable it, just in case it might already be enabled.
       - run: |
           gh workflow disable -R $GITHUB_REPOSITORY "Check should add lead reviewers to PR" 
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - name: Enable workflow to ensure that this workflow ger ready to work
         shell: bash
         run: |
