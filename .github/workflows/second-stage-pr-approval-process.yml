@@ -1,4 +1,5 @@
-name: Check should add lead reviewers to PR
+# Check should add lead reviewers to PR.
+name: 2 Stage of Approval PR process
 on:
   pull_request_review:
     types: [submitted]
@@ -8,17 +9,17 @@ env:
 
 jobs:
   onSubmit:
-    if: github.event.review.state == 'approved' && github.env.isApproved != 'true'
+    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     steps:
-      # Log github env
-      - run: echo "${{ github.env }}"
       # Analyze approvals data.
-      - name: multi-approved-event
+      - name: Analyze approvals data
         uses: sakhnovict/multi-approved-event-action@1.0.9
         id: approved
         with:
           approvalsCount: ${{ env.APPROVALS_TO_CALL_LEADS }}
+          # Then isApproved will be true only when approvals count equal 
+          # APPROVALS_TO_CALL_LEADS, not >=, for only once trigger.
           onlyEqual: 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -30,7 +31,3 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           config: .github/lead-reviewers.yml
         if: steps.approved.outputs.isApproved == 'true'
-        
-      # Save isApproved value to GITHUB environment file.
-      - name: Save isApproved value.
-        run: echo "isApproved=${{ steps.approved.outputs.isApproved }}" >> $GITHUB_ENV
