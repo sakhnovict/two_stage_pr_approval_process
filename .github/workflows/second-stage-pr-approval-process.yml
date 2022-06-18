@@ -21,6 +21,7 @@ jobs:
         id: approved
         with:
           approvalsCount: ${{ env.APPROVALS_TO_CALL_LEADS }}
+          onlyEqual: 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: add-reviewers-action
