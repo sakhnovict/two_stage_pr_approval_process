@@ -1,16 +1,11 @@
-name: Check should add team leads to PR review
+name: Check should add lead reviewers to PR
 on:
   pull_request_review:
     types: [submitted]
 
 env:
   APPROVALS_TO_CALL_LEADS: 2
-  
-  # Change variable to add reviewers with comma separator.
-  # Example: `sakhnovict, dbitkovski, chernodub`.
-  # Users should be codeowners or collaborators to review.
-  TEAM_LEADS_REVIEWERS: 'pirelo4472'
-    
+
 jobs:
   onSubmit:
     if: github.event.review.state == 'approved'
@@ -27,11 +22,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       # Add Leads to Pull Request review, if reached the required number of approvals.
-      - name: add-reviewers-action
-        uses: sakhnovict/add-reviewers-action@1.0.0
-        with: 
-          reviewers: ${{ env.TEAM_LEADS_REVIEWERS }}
+      - name: Request lead reviewers.
+        uses: necojackarc/auto-request-review@v0.7.0
+        with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          config: .github/lead-reviewers.yml
         if: steps.approved.outputs.isApproved == 'true'
         
       # Disable this workflow to ensure that this workflow will be triggered only once.
