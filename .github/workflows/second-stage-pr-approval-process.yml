@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Log github env
-      - run: echo "${{ github.env }}
+      - run: echo "${{ github.env }}"
       # Analyze approvals data.
       - name: multi-approved-event
         uses: sakhnovict/multi-approved-event-action@1.0.9
