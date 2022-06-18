@@ -16,6 +16,7 @@ jobs:
     if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     steps:
+      # Analyze approvals data.
       - name: multi-approved-event
         uses: sakhnovict/multi-approved-event-action@1.0.9
         id: approved
@@ -24,9 +25,17 @@ jobs:
           onlyEqual: 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Add Leads to Pull Request review, if reached the required number of approvals.
       - name: add-reviewers-action
         uses: sakhnovict/add-reviewers-action@1.0.0
         with: 
           reviewers: ${{ env.TEAM_LEADS_REVIEWERS }}
           token: ${{ secrets.GITHUB_TOKEN }}
         if: steps.approved.outputs.isApproved == 'true'
+      # Disable this workflow to ensure that this workflow will be triggered only once.
+      - name: Disable this workflow to ensure that this workflow will be triggered only once
+        shell: bash
+        run: |
+          gh workflow disable -R $GITHUB_REPOSITORY "${{ github.workflow }}"
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
