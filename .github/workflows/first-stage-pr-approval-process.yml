@@ -1,25 +1,14 @@
-name: Add reviewers to PR
+name: Add core reviewers to Pull Request
 on:
   pull_request: 
     types: [opened, reopened]
 
-env: 
- # Change variable to add reviewers with comma separator.
- # Example: `sakhnovict, dbitkovski, chernodub`.
- # Users should be codeowners or collaborators to review.
- FIRST_STEP_REVIEWERS: 'petati,fopanin'
-    
 jobs:
   onOpenedPullRequest:
     runs-on: ubuntu-latest
     steps:
-      - name: Request review based on files changes and/or groups the author belongs to
+      - name: Request core reviewers.
         uses: necojackarc/auto-request-review@v0.7.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          config: .github/reviewers.yml # Config file location override
-#     - name: add-reviewers-action
-#       uses: sakhnovict/add-reviewers-action@1.0.0
-#       with: 
-#         reviewers: ${{ env.FIRST_STEP_REVIEWERS }}
-#         token: ${{ secrets.GITHUB_TOKEN }}
+          config: .github/core-reviewers.yml
