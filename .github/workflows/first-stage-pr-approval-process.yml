@@ -12,8 +12,11 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           config: .github/core-reviewers.yml
-          
+      
       # Enable Second Stage of PR approval proccess workflow.
+      # To do this you first need to disable it, just in case it might already be enabled.
+      - run: |
+          gh workflow disable -R $GITHUB_REPOSITORY "Check should add lead reviewers to PR" 
       - name: Enable workflow to ensure that this workflow ger ready to work
         shell: bash
         run: |
