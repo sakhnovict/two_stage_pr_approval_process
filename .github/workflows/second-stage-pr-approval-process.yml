@@ -8,7 +8,7 @@ env:
 
 jobs:
   onSubmit:
-    if: github.event.review.state == 'approved'
+    if: github.event.review.state == 'approved' && env.isApproved != 'true'
     runs-on: ubuntu-latest
     steps:
       # Analyze approvals data.
@@ -29,11 +29,6 @@ jobs:
           config: .github/lead-reviewers.yml
         if: steps.approved.outputs.isApproved == 'true'
         
-      # Disable this workflow to ensure that this workflow will be triggered only once.
-      - name: Disable this workflow to ensure that this workflow will be triggered only once
-        shell: bash
-        run: |
-          gh workflow disable -R $GITHUB_REPOSITORY "${{ github.workflow }}"
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        if: steps.approved.outputs.isApproved == 'true'
+      # Save isApproved value to GITHUB environment file.
+      - name: Save isApproved value.
+        run: echo "isApproved=${{ steps.approved.outputs.isApproved }}" >> $GITHUB_ENV
