@@ -13,8 +13,13 @@ jobs:
   onOpenedPullRequest:
     runs-on: ubuntu-latest
     steps:
-    - name: add-reviewers-action
-      uses: sakhnovict/add-reviewers-action@1.0.0
-      with: 
-        reviewers: ${{ env.FIRST_STEP_REVIEWERS }}
-        token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Request review based on files changes and/or groups the author belongs to
+        uses: necojackarc/auto-request-review@v0.7.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          config: .github/reviewers.yml # Config file location override
+#     - name: add-reviewers-action
+#       uses: sakhnovict/add-reviewers-action@1.0.0
+#       with: 
+#         reviewers: ${{ env.FIRST_STEP_REVIEWERS }}
+#         token: ${{ secrets.GITHUB_TOKEN }}
