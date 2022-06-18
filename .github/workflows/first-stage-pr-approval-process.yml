@@ -1,4 +1,5 @@
-name: Add core reviewers to Pull Request
+# Add core reviewers to Pull Request.
+name: 1 Stage of Approval PR process
 on:
   pull_request: 
     types: [opened, reopened]
