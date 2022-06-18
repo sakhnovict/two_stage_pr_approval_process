@@ -12,3 +12,11 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           config: .github/core-reviewers.yml
+          
+      # Enable Second Stage of PR approval proccess workflow.
+      - name: Enable workflow to ensure that this workflow ger ready to work
+        shell: bash
+        run: |
+          gh workflow enable -R $GITHUB_REPOSITORY ./.github/workflows/second-stage-pr-approval-process
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
