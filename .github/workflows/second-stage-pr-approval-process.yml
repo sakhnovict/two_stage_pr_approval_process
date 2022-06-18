@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: multi-approved-event
-        uses: sakhnovict/multi-approved-event-action@1.0.3
+        uses: sakhnovict/multi-approved-event-action@1.0.9
         id: approved
         with:
           approvalsCount: ${{ env.APPROVALS_TO_CALL_LEADS }}
