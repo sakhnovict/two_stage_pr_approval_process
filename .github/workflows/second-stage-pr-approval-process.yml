@@ -8,7 +8,7 @@ env:
 
 jobs:
   onSubmit:
-    if: github.event.review.state == 'approved' && ${{ env.isApproved }} != 'true'
+    if: github.event.review.state == 'approved' && github.env.isApproved != 'true'
     runs-on: ubuntu-latest
     steps:
       # Analyze approvals data.
