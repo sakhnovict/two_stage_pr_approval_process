@@ -1,5 +1,6 @@
 reviewers:
-  # The default core reviewers
+  # The default core reviewers.
+  # Reviews may only be requested from collaborators.
   defaults:
       - petati
       - fopanin
