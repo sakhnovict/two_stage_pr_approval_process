@@ -25,6 +25,7 @@ jobs:
           onlyEqual: 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
       # Add Leads to Pull Request review, if reached the required number of approvals.
       - name: add-reviewers-action
         uses: sakhnovict/add-reviewers-action@1.0.0
@@ -32,6 +33,7 @@ jobs:
           reviewers: ${{ env.TEAM_LEADS_REVIEWERS }}
           token: ${{ secrets.GITHUB_TOKEN }}
         if: steps.approved.outputs.isApproved == 'true'
+        
       # Disable this workflow to ensure that this workflow will be triggered only once.
       - name: Disable this workflow to ensure that this workflow will be triggered only once
         shell: bash
@@ -39,3 +41,4 @@ jobs:
           gh workflow disable -R $GITHUB_REPOSITORY "${{ github.workflow }}"
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        if: steps.approved.outputs.isApproved == 'true'
